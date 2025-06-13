@@ -1,0 +1,36 @@
+version: '3.9'
+
+services:
+  postgres:
+    image: postgres:15
+    container_name: nestjs_stack_postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: neststack
+    ports:
+      - 7020:5432
+    networks:
+      - nestjs-stack-net
+
+  keycloak:
+    image: quay.io/keycloak/keycloak:24.0.1
+    container_name: nestjs_stack_keycloak
+    command: start-dev
+    environment:
+      KC_DB: postgres
+      KC_DB_USERNAME: postgres
+      KC_DB_PASSWORD: postgres
+      KC_DB_URL: jdbc:postgresql://postgres:5432/neststack
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+    ports:
+      - 7030:7030
+    depends_on:
+      - postgres
+    networks:
+      - nestjs-stack-net
+
+networks:
+  nestjs-stack-net:
+    driver: bridge
