@@ -8,7 +8,7 @@
 
 <img src="images/nestJs+postgresql.png" alt="nestapi" width="340" height="180" />
 
-> Enterprise-grade NestJS backend for managing developer resources, secrets, and API keys with Keycloak authentication.
+> Enterprise-grade NestJS backend for managing developer projects, resources, secrets, and API keys with Keycloak authentication.
 
 ## 🛠️ Tech Stack
 
