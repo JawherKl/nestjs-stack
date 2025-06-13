@@ -1,8 +1,12 @@
 # NestJS Stack Backend API
 
-<p align="center">
-  <img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" />
-</p>
+![Repository Size](https://img.shields.io/github/repo-size/JawherKl/nestjs-stack)
+![Last Commit](https://img.shields.io/github/last-commit/JawherKl/nestjs-stack)
+![Issues](https://img.shields.io/github/issues-raw/JawherKl/nestjs-stack)
+![Forks](https://img.shields.io/github/forks/JawherKl/nestjs-stack)
+![Stars](https://img.shields.io/github/stars/JawherKl/nestjs-stack)
+
+<img src="images/nestJs+postgresql.png" alt="nestapi" width="340" height="180" />
 
 > Enterprise-grade NestJS backend for managing developer resources, secrets, and API keys with Keycloak authentication.
 
