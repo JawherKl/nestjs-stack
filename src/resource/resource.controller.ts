@@ -20,7 +20,7 @@ export class ResourceController {
   @ApiResponse({ status: 201, description: 'Resource successfully created.' })
   @ApiResponse({ status: 401, description: 'Unauthorized.' })
   async create(@Req() req: Request, @Body() createResourceDto: CreateResourceDto) {
-    const userId = req.user?.['userId']; // Get user ID from JWT token
+    const userId = req.user?.['userId'];
     return this.resourceService.create(userId, createResourceDto);
   }
 

@@ -17,7 +17,7 @@ model Project {
   id          String     @id @default(uuid())
   name        String
   description String?
-  isArchived  Boolean    @default(false)  // Already exists
+  isArchived  Boolean    @default(false)
   userId      String
   createdAt   DateTime   @default(now())
   updatedAt   DateTime   @updatedAt
@@ -31,7 +31,7 @@ model Resource {
   type        String
   value       String
   projectId   String
-  isArchived  Boolean  @default(false)  // Add this field
+  isArchived  Boolean  @default(false)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
   project     Project @relation(fields: [projectId], references: [id])
