@@ -46,6 +46,10 @@
 - [x] Store logs in a dedicated table
 - [x] Expose an endpoint for admins to review logs
 
+### Resource Sharing & Permissions
+- [x] Allow project/resource sharing with other users
+- [x] Implement granular permissions (read/write/admin) per resource/project
+
 ## 🏗️ Installation
 
 ```bash
@@ -54,6 +58,9 @@ npm install
 
 # Set up environment variables
 cp .env.example .env
+
+# Create database
+psql -U postgres -c "CREATE DATABASE neststack_db;"
 
 # Run database migrations
 npx prisma migrate dev
@@ -110,12 +117,16 @@ NODE_ENV=development
 
 ```
 src/
-├── auth/           # Authentication & authorization
-├── project/        # Project management
-├── resource/       # Resource management
-├── prisma/         # Database schema & migrations
-├── dto/            # Data transfer objects
-└── config/         # Configuration files
+├── audit-log/              # Audit Logging
+├── auth/                   # Authentication & authorization
+├── dto/                    # Data transfer objects
+├── keycloak/               # Keycloak implementation
+├── prisma/                 # Database schema & migrations
+├── project/                # Project management
+├── project-permission/     # Project permission management
+├── resource/               # Resource management
+├── resource-permission/    # Resource premission management
+└── user/                   # User informations management
 ```
 
 ## 🧪 Test Environment
@@ -147,6 +158,15 @@ NODE_ENV=test npm run test
 - `POST /api/resources` - Create resource
 - `GET /api/resources/:id` - Get resource
 - `DELETE /api/resources/:id` - Delete resource
+
+### Audit Logging
+- `GET /api/resources` - List all audit log
+
+### Resource Sharing & Permissions
+- `GET /projects/{projectId}/permissions` - List permissions releated to project
+- `POST /projects/{projectId}/permissions` - Create permissions for project
+- `GET /resources/{resourceId}/permissions` - List permissions releated to resource
+- `POST /resources/{resourceId}/permissions` - Create permissions for resource
 
 ## 👤 Author
 
