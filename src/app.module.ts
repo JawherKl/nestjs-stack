@@ -11,6 +11,7 @@ import { UserModule } from './user/user.module';
 import { AuditLogModule } from './audit-log/audit-log.module';
 import { ProjectPermissionModule } from './project-permission/project-permission.module';
 import { ResourcePermissionModule } from './resource-permission/resource-permission.module';
+import { ApiKeyModule } from './api-key/api-key.module';
 
 @Module({
   imports: [
@@ -21,7 +22,8 @@ import { ResourcePermissionModule } from './resource-permission/resource-permiss
     UserModule,
     AuditLogModule,
     ProjectPermissionModule,
-    ResourcePermissionModule
+    ResourcePermissionModule,
+    ApiKeyModule
   ],
   controllers: [AppController],
   providers: [
