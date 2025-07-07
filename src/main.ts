@@ -16,8 +16,8 @@ async function bootstrap() {
 
   // Swagger setup
   const config = new DocumentBuilder()
-    .setTitle('DevHive API')
-    .setDescription('The DevHive API documentation')
+    .setTitle('Nest Stack API')
+    .setDescription('The Nest Stack API documentation')
     .setVersion('1.0')
     .addTag('auth')
     .addTag('projects')
