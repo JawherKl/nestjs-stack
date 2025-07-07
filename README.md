@@ -41,6 +41,11 @@
 - [x] Resource type validation
 - [x] Archive/restore support
 
+### Audit Logging
+- [x] Track all critical actions (create/update/delete) for projects and resources
+- [x] Store logs in a dedicated table
+- [x] Expose an endpoint for admins to review logs
+
 ## 🏗️ Installation
 
 ```bash
