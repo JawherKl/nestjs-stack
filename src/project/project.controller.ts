@@ -85,8 +85,12 @@ export class ProjectController {
   @ApiResponse({ status: 404, description: 'Project not found.' })
   @ApiResponse({ status: 401, description: 'Unauthorized.' })
   @ApiResponse({ status: 403, description: 'Forbidden.' })
-  update(@Param('id') id: string, @Body() dto: UpdateProjectDto) {
-    return this.projectService.update(id, dto);
+  update(@Param('id') id: string, @Body() dto: UpdateProjectDto, @Req() req: Request) {
+    const userId = req.user?.['sub'];
+    if (!userId) {
+      throw new UnauthorizedException('User ID not found in token');
+    }
+    return this.projectService.update(id, dto, userId);
   }
 
   @Delete(':id')
@@ -96,15 +100,23 @@ export class ProjectController {
   @ApiResponse({ status: 404, description: 'Project not found.' })
   @ApiResponse({ status: 401, description: 'Unauthorized.' })
   @ApiResponse({ status: 403, description: 'Forbidden.' })
-  remove(@Param('id') id: string) {
-    return this.projectService.remove(id);
+  remove(@Param('id') id: string, @Req() req: Request) {
+    const userId = req.user?.['sub'];
+    if (!userId) {
+      throw new UnauthorizedException('User ID not found in token');
+    }
+    return this.projectService.remove(id, userId);
   }
 
   @Post(':id/restore')
   @Roles('admin')
   @ApiOperation({ summary: 'Restore a deleted project by ID' })
-  async restore(@Param('id') id: string) {
-    return this.projectService.restore(id);
+  async restore(@Param('id') id: string, @Req() req: Request) {
+    const userId = req.user?.['sub'];
+    if (!userId) {
+      throw new UnauthorizedException('User ID not found in token');
+    }
+    return this.projectService.restore(id, userId);
   }
 
   @Get('archived')

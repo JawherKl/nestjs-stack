@@ -5,13 +5,10 @@ import { ProjectModule } from './project/project.module';
 import { PrismaService } from './prisma/prisma.service';
 import { PrismaModule } from './prisma/prisma.module';
 import { AuthModule } from './auth/auth.module';
-import { UserService } from './user/user.service';
-import { UserController } from './user/user.controller';
 import { KeycloakService } from './keycloak/keycloak.service';
-import { ResourceService } from './resource/resource.service';
-import { ResourceController } from './resource/resource.controller';
 import { ResourceModule } from './resource/resource.module';
 import { UserModule } from './user/user.module';
+import { AuditLogModule } from './audit-log/audit-log.module';
 
 @Module({
   imports: [
@@ -19,7 +16,8 @@ import { UserModule } from './user/user.module';
     AuthModule,
     PrismaModule,
     ResourceModule,
-    UserModule
+    UserModule,
+    AuditLogModule
   ],
   controllers: [AppController],
   providers: [
