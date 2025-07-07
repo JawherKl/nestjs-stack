@@ -14,7 +14,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
         cache: true,
         rateLimit: true,
         jwksRequestsPerMinute: 100,
-        jwksUri: `${process.env.KEYCLOAK_URL}/realms/devhive/protocol/openid-connect/certs`,
+        jwksUri: `${process.env.KEYCLOAK_URL}/realms/neststack/protocol/openid-connect/certs`,
       }),
     });
   }
