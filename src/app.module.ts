@@ -9,6 +9,8 @@ import { KeycloakService } from './keycloak/keycloak.service';
 import { ResourceModule } from './resource/resource.module';
 import { UserModule } from './user/user.module';
 import { AuditLogModule } from './audit-log/audit-log.module';
+import { ProjectPermissionModule } from './project-permission/project-permission.module';
+import { ResourcePermissionModule } from './resource-permission/resource-permission.module';
 
 @Module({
   imports: [
@@ -17,7 +19,9 @@ import { AuditLogModule } from './audit-log/audit-log.module';
     PrismaModule,
     ResourceModule,
     UserModule,
-    AuditLogModule
+    AuditLogModule,
+    ProjectPermissionModule,
+    ResourcePermissionModule
   ],
   controllers: [AppController],
   providers: [

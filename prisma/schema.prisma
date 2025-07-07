@@ -12,6 +12,8 @@ model User {
   name        String
   email       String     @unique
   projects    Project[]
+  projectPermissions ProjectPermission[]
+  resourcePermissions ResourcePermission[]
 }
 model Project {
   id          String     @id @default(uuid())
@@ -23,8 +25,8 @@ model Project {
   updatedAt   DateTime   @updatedAt
   user        User       @relation(fields: [userId], references: [id])
   resources   Resource[]
+  projectPermissions ProjectPermission[]
 }
-
 model Resource {
   id          String   @id @default(uuid())
   name        String
@@ -35,6 +37,7 @@ model Resource {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
   project     Project @relation(fields: [projectId], references: [id])
+  resourcePermissions ResourcePermission[]
 }
 
 model AuditLog {
@@ -45,4 +48,24 @@ model AuditLog {
   userId      String
   timestamp   DateTime @default(now())
   details     Json?
+}
+
+model ProjectPermission {
+  id         String   @id @default(uuid())
+  userId     String
+  projectId  String
+  permission String   // 'read', 'write', 'admin'
+  user       User     @relation(fields: [userId], references: [id])
+  project    Project  @relation(fields: [projectId], references: [id])
+  @@unique([userId, projectId])
+}
+
+model ResourcePermission {
+  id          String   @id @default(uuid())
+  userId      String
+  resourceId  String
+  permission  String   // 'read', 'write', 'admin'
+  user        User     @relation(fields: [userId], references: [id])
+  resource    Resource @relation(fields: [resourceId], references: [id])
+  @@unique([userId, resourceId])
 }
