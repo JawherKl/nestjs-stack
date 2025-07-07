@@ -3,10 +3,14 @@ import { PrismaService } from '../prisma/prisma.service';
 import { CreateProjectDto } from '../dto/create-project.dto';
 import { UpdateProjectDto } from '../dto/update-project.dto';
 import { PaginationQueryDto } from '../dto/create-pagination.dto';
+import { AuditLogService } from 'src/audit-log/audit-log.service';
 
 @Injectable()
 export class ProjectService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    private prisma: PrismaService,
+    private auditLogService: AuditLogService,
+  ) {}
 
   async create(userId: string, dto: CreateProjectDto) {
     const user = await this.prisma.user.findUnique({
@@ -17,7 +21,7 @@ export class ProjectService {
       throw new NotFoundException(`User with ID ${userId} not found`);
     }
 
-    return this.prisma.project.create({
+    const project = await this.prisma.project.create({
       data: {
         name: dto.name,
         description: dto.description,
@@ -31,6 +35,16 @@ export class ProjectService {
         user: true
       }
     });
+
+    await this.auditLogService.logAction({
+      action: 'CREATE',
+      entity: 'Project',
+      entityId: project.id,
+      userId,
+      details: project,
+    });
+
+    return project;
   }
 
   async findAll(query: PaginationQueryDto) {
@@ -87,25 +101,55 @@ export class ProjectService {
     });
   }
 
-  async update(id: string, dto: UpdateProjectDto) {
-    return this.prisma.project.update({
+  async update(id: string, dto: UpdateProjectDto, userId: string) {
+    const updated = await this.prisma.project.update({
       where: { id },
       data: dto,
     });
+
+    await this.auditLogService.logAction({
+      action: 'UPDATE',
+      entity: 'Project',
+      entityId: id,
+      userId,
+      details: dto,
+    });
+
+    return updated;
   }
 
-  async remove(id: string) {
-    return this.prisma.project.update({
+  async remove(id: string, userId: string) {
+    const archived = await this.prisma.project.update({
       where: { id },
       data: { isArchived: true },
     });
+
+    await this.auditLogService.logAction({
+      action: 'ARCHIVE',
+      entity: 'Project',
+      entityId: id,
+      userId,
+      details: archived,
+    });
+
+    return archived;
   }
 
-  async restore(id: string) {
-    return this.prisma.project.update({
+  async restore(id: string, userId: string) {
+    const restored = await this.prisma.project.update({
       where: { id },
       data: { isArchived: false },
     });
+
+    await this.auditLogService.logAction({
+      action: 'RESTORE',
+      entity: 'Project',
+      entityId: id,
+      userId,
+      details: restored,
+    });
+
+    return restored;
   }
 
   async findArchived() {

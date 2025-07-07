@@ -21,9 +21,9 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
 
   async validate(payload: any) {
     return {
-      userId: payload.sub, // Using 'sub' claim which contains Keycloak user ID
+      userId: payload.sub,
       email: payload.email,
-      roles: payload.realm_access?.roles || []
+      roles: payload.realm_access?.roles || [],
     };
   }
 }

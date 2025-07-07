@@ -36,3 +36,13 @@ model Resource {
   updatedAt   DateTime @updatedAt
   project     Project @relation(fields: [projectId], references: [id])
 }
+
+model AuditLog {
+  id          String   @id @default(uuid())
+  action      String
+  entity      String
+  entityId    String
+  userId      String
+  timestamp   DateTime @default(now())
+  details     Json?
+}
