@@ -2,10 +2,8 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ProjectModule } from './project/project.module';
-import { PrismaService } from './prisma/prisma.service';
 import { PrismaModule } from './prisma/prisma.module';
 import { AuthModule } from './auth/auth.module';
-import { KeycloakService } from './keycloak/keycloak.service';
 import { ResourceModule } from './resource/resource.module';
 import { UserModule } from './user/user.module';
 import { AuditLogModule } from './audit-log/audit-log.module';
@@ -27,9 +25,7 @@ import { ApiKeyModule } from './api-key/api-key.module';
   ],
   controllers: [AppController],
   providers: [
-    AppService,
-    PrismaService,
-    KeycloakService
+    AppService
   ]
 })
 export class AppModule {}
