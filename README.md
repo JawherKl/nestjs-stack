@@ -172,7 +172,8 @@ NODE_ENV=test npm run test
 
 **Jawher Kallel**
 - Github: [@JawherKl](https://github.com/JawherKl)
-
+<!--
 ## 📄 License
 
 This project is MIT licensed.
+-->
